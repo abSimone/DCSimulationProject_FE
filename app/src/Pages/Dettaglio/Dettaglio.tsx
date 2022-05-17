@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 interface Ingrediente {
-  id_ingrediente: number;
+  id: number;
   nome: string;
 }
 
@@ -40,7 +40,7 @@ const Dettaglio = () => {
       <label htmlFor="nome">Costo</label>
       <input type="number" id="costo" name="costo" value={costo} onChange={(e) => setCosto(+e.target.value)} />
       {listaIngredienti.map((ingrediente) => (
-        <div key={ingrediente.id_ingrediente}>{ingrediente.nome}</div>
+        <div key={ingrediente.id}>{ingrediente.nome}</div>
       ))}
 
     </div>
