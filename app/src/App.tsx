@@ -6,6 +6,7 @@ import Home from "./Pages/Home/Home";
 import Dettaglio from "./Pages/Dettaglio/Dettaglio";
 import Lista from "./Pages/Lista/Lista";
 import Layout from "./Layout/Layout";
+
 export const routes = [
   {
     path: "/",
@@ -21,18 +22,18 @@ export const routes = [
   },
 ];
 
-function App() {
-  return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dettaglio/:id" element={<Dettaglio />} />
-          <Route path="/lista" element={<Lista />} />
-        </Routes>
-      </Layout>
-    </Router>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dettaglio/:id" element={<Dettaglio />} />
+            <Route path="/lista" element={<Lista />} />
+          </Routes>
+        </Layout>
+      </Router>
+    );
+  }
 }
-
-export default App;
