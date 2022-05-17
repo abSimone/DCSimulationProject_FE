@@ -21,8 +21,6 @@ const Lista = () => {
    
    const data = await response.json();
    setPizze(data.data)
-    
-    
   }
 
   useEffect(() => { getPizze() }, []);
@@ -31,9 +29,9 @@ const Lista = () => {
   return (
     <div>
       <h1>Lista</h1>
-      {pizze.map((pizza, idx) => (
+      {pizze.map((pizza) => (
         <>
-          <div className="pizze">
+          <div key={pizza.id_pizza} className="pizze">
             <Link to={`/dettaglio/${pizza.id_pizza}`}><div>{pizza.nome}</div></Link>
             <div>{pizza.costo}</div>
           </div>

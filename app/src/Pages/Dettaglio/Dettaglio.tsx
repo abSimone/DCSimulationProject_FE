@@ -1,11 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
+interface Ingrediente {
+  id_ingrediente: number;
+  nome: string;
+}
 
 const Dettaglio = () => {
   const [nome, setNome] = useState<string>("");
   const [costo, setCosto] = useState<number>(0);
+  const [listaIngredienti, setListaIngredienti] = useState<Ingrediente[]>([]);
   const { id } = useParams();
 
   const getPizza = async () => {
@@ -17,13 +21,16 @@ const Dettaglio = () => {
           "Access-Control-Allow-Origin": "*"
         }
       });
-   
-   const data = await response.json();
-   setNome(data.data.nome)
-   setCosto(data.data.costo) 
+
+    const data = await response.json();
+    setNome(data.data.nome)
+    setCosto(data.data.costo)
+    setListaIngredienti(data.data.ingredienti)
   }
 
-  useEffect(() =>{getPizza()}, [id])
+
+
+  useEffect(() => { getPizza() }, [id])
 
   return (
     <div>
@@ -32,6 +39,10 @@ const Dettaglio = () => {
       <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
       <label htmlFor="nome">Costo</label>
       <input type="number" id="costo" name="costo" value={costo} onChange={(e) => setCosto(+e.target.value)} />
+      {listaIngredienti.map((ingrediente) => (
+        <div key={ingrediente.id_ingrediente}>{ingrediente.nome}</div>
+      ))}
+
     </div>
   );
 };
