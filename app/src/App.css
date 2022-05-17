@@ -8,6 +8,14 @@
   align-items: center;
 }
 
+.pizze {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #f2ca52;
+  box-shadow: 1px 1px 40px lightgrey;
+}
+
 .App {
   text-align: center;
 }
