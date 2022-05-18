@@ -47,19 +47,21 @@ const Lista = () => {
   const [pizze, setPizze] = useState<Pizza[]>([]);
   return (
     <div>
-      <h1>Lista</h1>
+      <h1 style={{marginLeft:"5px"}}>Lista</h1>
+      <div className="list-group list-group-flash">
       {pizze.map((pizza) => (
         <>
-          <div key={pizza.id_pizza} className="pizze">
-            <Link to={`/dettaglio/${pizza.id_pizza}`}>
-              <div>{pizza.nome}</div>
+          <div key={pizza.id_pizza} className="list-group-item d-flex justify-content-between align-items-center">
+            <Link to={`/dettaglio/${pizza.id_pizza}`} style={{textDecoration: "none"}}>
+              <div className="nome-pizza">{pizza.nome}</div>
             </Link>
-            <div>{pizza.costo}</div>
-            <button onClick={()=>rimuoviPizza(pizza.id_pizza).then(() => getPizze())}>Elimina</button>
+            <div>{pizza.costo}€</div>
+            <button className="btn btn-outline-primary" onClick={()=>rimuoviPizza(pizza.id_pizza).then(() => getPizze())}>Elimina</button>
           </div>
         </>
       ))}
-      <button onClick={redirectToAggiungi}>Aggiungi</button>
+      </div>
+      <button className="btn btn-outline-primary" onClick={redirectToAggiungi} style={{margin: "10px"}}>Aggiungi</button>
     </div>
   );
 };

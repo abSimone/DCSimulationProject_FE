@@ -53,6 +53,23 @@
   color: #fff;
 }
 
+button{
+  color: #6C2815 !important;
+  border: 2px solid #6C2815 !important;
+  border-radius: 20px !important;
+}
+
+button:hover{
+  color: #708601 !important;
+  background-color: transparent !important;
+  border-color: #708601 !important;
+}
+
+.nome-pizza{
+  color:#6C2815;
+  font-size: 18px;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;
