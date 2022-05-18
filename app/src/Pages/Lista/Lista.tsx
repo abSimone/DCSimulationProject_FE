@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 
 interface Pizza {
   id_pizza: number;
@@ -8,22 +8,28 @@ interface Pizza {
 }
 
 const Lista = () => {
+  const navigate = useNavigate();
 
   const getPizze = async () => {
-    const response = await fetch("http://127.0.0.1:8000/pizza",
-      {
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-   
-   const data = await response.json();
-   setPizze(data.data)
-  }
+    const response = await fetch("http://127.0.0.1:8000/pizza", {
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
 
-  useEffect(() => { getPizze() }, []);
+    const data = await response.json();
+    setPizze(data.data);
+  };
+
+  const redirectToAggiungi = () => {
+    navigate("/aggiungi");
+  };
+
+  useEffect(() => {
+    getPizze();
+  }, []);
 
   const [pizze, setPizze] = useState<Pizza[]>([]);
   return (
@@ -32,11 +38,14 @@ const Lista = () => {
       {pizze.map((pizza) => (
         <>
           <div key={pizza.id_pizza} className="pizze">
-            <Link to={`/dettaglio/${pizza.id_pizza}`}><div>{pizza.nome}</div></Link>
+            <Link to={`/dettaglio/${pizza.id_pizza}`}>
+              <div>{pizza.nome}</div>
+            </Link>
             <div>{pizza.costo}</div>
           </div>
         </>
       ))}
+      <button onClick={redirectToAggiungi}>Aggiungi</button>
     </div>
   );
 };
