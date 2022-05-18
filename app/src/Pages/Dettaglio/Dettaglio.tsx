@@ -65,7 +65,7 @@ const Dettaglio = () => {
   }, [id]);
 
   const modificaPizza = async () => {
-    const response = await fetch(`http://127.0.0.1:8000/pizza/${id}/modifica`, {
+    const response = await fetch(`http://127.0.0.1:8000/pizza/${id}/update`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
