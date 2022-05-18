@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Layout from "./Layout/Layout";
 
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
