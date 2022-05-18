@@ -19,6 +19,7 @@ const Lista = () => {
       },
     });
 
+
     const data = await response.json();
     setPizze(data.data);
   };
@@ -26,6 +27,18 @@ const Lista = () => {
   const redirectToAggiungi = () => {
     navigate("/aggiungi");
   };
+
+  
+  const rimuoviPizza = async (id: number) =>  {
+    const response = await fetch(`http://127.0.0.1:8000/pizza/${id}/delete`, {
+      method: 'DELETE',
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+  }
 
   useEffect(() => {
     getPizze();
@@ -42,6 +55,7 @@ const Lista = () => {
               <div>{pizza.nome}</div>
             </Link>
             <div>{pizza.costo}</div>
+            <button onClick={()=>rimuoviPizza(pizza.id_pizza).then(() => getPizze())}>Elimina</button>
           </div>
         </>
       ))}

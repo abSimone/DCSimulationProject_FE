@@ -66,7 +66,7 @@ const Dettaglio = () => {
 
   const modificaPizza = async () => {
     const response = await fetch(`http://127.0.0.1:8000/pizza/${id}/modifica`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         accept: "application/json",
@@ -97,8 +97,9 @@ const Dettaglio = () => {
         ingredienti: listaIngredienti,
       }),
     });
-    const data = await response.json();
-    console.log(data);
+    if (response.ok) {
+      alert("Inserimento avvenuto con successo");
+    }
   };
 
   return (
