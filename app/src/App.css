@@ -45,6 +45,14 @@
   color: #fff;
 }
 
+.header a:active {
+  color: #fff;
+}
+
+.header a:visited {
+  color: #fff;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;
