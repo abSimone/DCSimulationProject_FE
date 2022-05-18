@@ -104,49 +104,79 @@ const Dettaglio = () => {
 
   return (
     <div>
-      <h1>Dettaglio del prodotto: {id}</h1>
-      <label htmlFor="nome">Gusto</label>
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-      />
-      <label htmlFor="nome">Costo</label>
-      <input
-        type="number"
-        id="costo"
-        name="costo"
-        value={costo}
-        onChange={(e) => setCosto(+e.target.value)}
-      />
+      <h1 style={{ margin: "10px" }}>Dettaglio del prodotto: {nome}</h1>
+      <div
+        className="input-group mb-3"
+        style={{ width: "90%", marginRight: "auto", marginLeft: "auto" }}
+      >
+        <label className="input-group-text" htmlFor="nome">
+          Gusto
+        </label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          className="form-control"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
+        <label className="input-group-text" htmlFor="nome">
+          Costo
+        </label>
+        <input
+          type="number"
+          id="costo"
+          name="costo"
+          className="form-control"
+          value={costo}
+          onChange={(e) => setCosto(+e.target.value)}
+        />
+      </div>
+
       {listaIngredienti.length > 0 &&
         listaIngredienti.map((ingrediente) => (
-          <>
-            <div key={ingrediente.id}>{ingrediente.nome}</div>
-            <button onClick={(e) => rimuoviIngredienti(e, ingrediente.id)}>
-              {" "}
-              x{" "}
-            </button>
-            <br></br>
-          </>
-        ))}
-      {ingredienti.map((ingrediente) => (
-        <>
-          {listaIngredienti.filter((el) => el.id == ingrediente.id).length ==
-            0 && (
-            <button
-              value={ingrediente.id}
-              onClick={(e) => aggiungiIngrediente(e, ingrediente.id)}
+          <div className="list-group list-group-flush">
+            <div
+              className="list-group-item d-flex justify-content-between align-items-center"
+              key={ingrediente.id}
             >
               {ingrediente.nome}
-            </button>
-          )}
-        </>
-      ))}
-      <div>
-        <button onClick={id ? modificaPizza : aggiungiPizza}>Salva</button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={(e) => rimuoviIngredienti(e, ingrediente.id)}
+              >
+                {" "}
+                Elimina{" "}
+              </button>
+            </div>
+          </div>
+        ))}
+      <h2 style={{ marginTop: "10px", marginLeft: "10px" }}>
+        Aggiungi ingredienti
+      </h2>
+      <div style={{margin: "10px"}}>
+        {ingredienti.map((ingrediente) => (
+          <>
+            {listaIngredienti.filter((el) => el.id == ingrediente.id).length ==
+              0 && (
+              <button
+                value={ingrediente.id}
+                className="btn btn-outline-primary"
+                onClick={(e) => aggiungiIngrediente(e, ingrediente.id)}
+              >
+                {ingrediente.nome}
+              </button>
+            )}
+          </>
+        ))}
+      </div>
+      <div style={{float: "right", margin: "10px"}}>
+        <button
+          className="btn btn-outline-primary"
+          onClick={id ? modificaPizza : aggiungiPizza}
+        >
+          Salva
+        </button>
       </div>
     </div>
   );
