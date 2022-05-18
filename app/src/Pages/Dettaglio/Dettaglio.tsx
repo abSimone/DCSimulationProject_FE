@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 interface Ingrediente {
   id: number;
@@ -10,27 +10,45 @@ const Dettaglio = () => {
   const [nome, setNome] = useState<string>("");
   const [costo, setCosto] = useState<number>(0);
   const [listaIngredienti, setListaIngredienti] = useState<Ingrediente[]>([]);
+  const [ingredienti, setIngredienti] = useState<Ingrediente[]>([]);
   const { id } = useParams();
 
   const getPizza = async () => {
-    const response = await fetch(`http://127.0.0.1:8000/pizza/${id}`,
-      {
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
+    if (id) {
+      const response = await fetch(`http://127.0.0.1:8000/pizza/${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        });
 
-    const data = await response.json();
-    setNome(data.data.nome)
-    setCosto(data.data.costo)
-    setListaIngredienti(data.data.ingredienti)
+      const data = await response.json();
+      setNome(data.data.nome)
+      setCosto(data.data.costo)
+      setListaIngredienti(data.data.ingredienti)
+    }
   }
 
+  const getIngredienti = async () => {
+    const response = await fetch(`http://127.0.0.1:8000/ingrediente`,
+    {
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+    const data = await response.json();
+    setIngredienti(data.data.ingredienti);
+  }
 
+  const aggiungiIngrediente = (event : React.MouseEvent<HTMLButtonElement>) => {
+    setListaIngredienti((lista) => [...lista,  ingredienti.find((el) => el.id === 1)!]);
+  }
 
-  useEffect(() => { getPizza() }, [id])
+  useEffect(() => { getPizza(); getIngredienti() }, [id])
 
   return (
     <div>
@@ -39,8 +57,11 @@ const Dettaglio = () => {
       <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
       <label htmlFor="nome">Costo</label>
       <input type="number" id="costo" name="costo" value={costo} onChange={(e) => setCosto(+e.target.value)} />
-      {listaIngredienti.map((ingrediente) => (
+      {listaIngredienti.length > 0 && listaIngredienti.map((ingrediente) => (
         <div key={ingrediente.id}>{ingrediente.nome}</div>
+      ))}
+      {ingredienti.map((ingrediente) => (
+        <button value={ingrediente.id} onClick={aggiungiIngrediente}>{ingrediente.nome}</button>
       ))}
 
     </div>

@@ -31,6 +31,7 @@ export default class App extends React.Component {
             <Route path="/" element={<Home />} />
             <Route path="/dettaglio/:id" element={<Dettaglio />} />
             <Route path="/lista" element={<Lista />} />
+            <Route path="/aggiungi" element={<Dettaglio />} />
           </Routes>
         </Layout>
       </Router>
