@@ -41,11 +41,16 @@ const Dettaglio = () => {
       }
     });
     const data = await response.json();
-    setIngredienti(data.data.ingredienti);
+    console.log(data)
+    setIngredienti(data?.data || []);
+  }
+  
+  const aggiungiIngrediente = (event : React.MouseEvent<HTMLButtonElement>, id:number) => {
+    setListaIngredienti((lista) => [...lista,  ingredienti.find((el) => el.id === id)!]);
   }
 
-  const aggiungiIngrediente = (event : React.MouseEvent<HTMLButtonElement>) => {
-    setListaIngredienti((lista) => [...lista,  ingredienti.find((el) => el.id === 1)!]);
+  const rimuoviIngredienti = (event : React.MouseEvent<HTMLButtonElement>,id:number)=>{
+    setListaIngredienti(listaIngredienti.filter((el)=>el.id !== id))
   }
 
   useEffect(() => { getPizza(); getIngredienti() }, [id])
@@ -57,11 +62,14 @@ const Dettaglio = () => {
       <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
       <label htmlFor="nome">Costo</label>
       <input type="number" id="costo" name="costo" value={costo} onChange={(e) => setCosto(+e.target.value)} />
-      {listaIngredienti.length > 0 && listaIngredienti.map((ingrediente) => (
+      {listaIngredienti.length > 0 && listaIngredienti.map((ingrediente) => (<>
         <div key={ingrediente.id}>{ingrediente.nome}</div>
-      ))}
-      {ingredienti.map((ingrediente) => (
-        <button value={ingrediente.id} onClick={aggiungiIngrediente}>{ingrediente.nome}</button>
+        <button onClick={(e)=>rimuoviIngredienti(e,ingrediente.id)}> x </button><br></br>
+      </>))}
+      {ingredienti.map((ingrediente) => (<>
+        {listaIngredienti.filter((el)=>el.id == ingrediente.id).length == 0 && <button value={ingrediente.id} 
+        onClick={(e)=>aggiungiIngrediente(e,ingrediente.id)}>{ingrediente.nome}</button>}
+        </>
       ))}
 
     </div>
